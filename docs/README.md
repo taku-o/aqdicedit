@@ -50,6 +50,7 @@
         models.ts (master, record)
     css/
         dict.less
+        about.less
     vendor/
         AqUsrDic.framework
         aq_dic_small
