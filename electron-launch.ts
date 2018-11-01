@@ -13,9 +13,9 @@ function handleOpenUrl(scheme: string): void {
       const dictPath = parsed.query && parsed.query.q;
       if (dictPath) {
         if (myApp.dictWindow) {
-          myApp.dictWindow.webContents.send('openDict', dictWindow);
+          myApp.dictWindow.webContents.send('openDict', dictPath);
         } else {
-          myApp.launchArgs = {filePath: filePath};
+          myApp.launchArgs = {dictPath: dictPath};
         }
       }
       break;

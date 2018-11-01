@@ -6,7 +6,7 @@ import * as Pane from './electron-window';
 import * as Launch from './electron-launch';
 
 // debug options
-const isDebug: boolean = process.env.DEBUG != null,
+const isDebug: boolean = process.env.DEBUG != null;
 
 // AqDicEdit application
 const AqDicEdit = function(): void {
@@ -18,7 +18,6 @@ AqDicEdit.prototype.showDictWindow = Pane.showDictWindow;
 AqDicEdit.prototype.showAboutWindow = Pane.showAboutWindow;
 AqDicEdit.prototype.initAppMenu = Menu.initAppMenu;
 AqDicEdit.prototype.initDockMenu = Menu.initDockMenu;
-AqDicEdit.prototype.handleOpenFile = Launch.handleOpenFile;
 AqDicEdit.prototype.handleOpenUrl = Launch.handleOpenUrl;
 
 // handle uncaughtException
@@ -45,7 +44,7 @@ app.on('will-finish-launching', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', () => {
-  // open main window.
+  // open dict window.
   myApp.showDictWindow();
 
   // init menu
@@ -55,15 +54,15 @@ app.on('ready', () => {
 
 // resetWindowPosition
 function resetWindowPosition(): void {
-  myApp.mainWindow.center();
+  myApp.dictWindow.center();
 }
 AqDicEdit.prototype.resetWindowPosition = resetWindowPosition;
 
 // switchAlwaysOnTop
 function switchAlwaysOnTop(): void {
-  const newflg = !myApp.mainWindow.isAlwaysOnTop();
-  myApp.mainWindow.setAlwaysOnTop(newflg);
-  myApp.mainWindow.webContents.send('switchAlwaysOnTop', newflg);
+  const newflg = !myApp.dictWindow.isAlwaysOnTop();
+  myApp.dictWindow.setAlwaysOnTop(newflg);
+  myApp.dictWindow.webContents.send('switchAlwaysOnTop', newflg);
 }
 AqDicEdit.prototype.switchAlwaysOnTop = switchAlwaysOnTop;
 

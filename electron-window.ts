@@ -17,8 +17,6 @@ function showDictWindow(): void {
   this.dictWindow = new BrowserWindow({
     width: width,
     height: height,
-    x: x,
-    y: y,
     acceptFirstMouse: true,
     show: false, // show at did-finish-load event
     webPreferences: {

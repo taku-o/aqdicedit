@@ -11,4 +11,6 @@ AqDicEdit-darwin-x64.zip
 !/node_modules/ref/
 !/node_modules/ref-struct/
 /node_modules/
+!gulpfile.js
+*.js
 
