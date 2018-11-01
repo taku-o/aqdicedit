@@ -6,7 +6,7 @@
   "types": "types.d.ts",
   "scripts": {
     "tasks": "gulp --tasks-simple",
-    "app": "gulp app",
+    "app": "gulp app"
   },
   "keywords": [
     "mac-osx",
