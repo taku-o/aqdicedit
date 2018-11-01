@@ -5,6 +5,9 @@ import * as Menu from './electron-menu';
 import * as Pane from './electron-window';
 import * as Launch from './electron-launch';
 
+// debug options
+const isDebug: boolean = process.env.DEBUG != null,
+
 // AqDicEdit application
 const AqDicEdit = function(): void {
   this.launchArgs = null;
@@ -12,6 +15,7 @@ const AqDicEdit = function(): void {
 };
 const myApp = new AqDicEdit() as yubo.IAqDicEdit;
 AqDicEdit.prototype.showDictWindow = Pane.showDictWindow;
+AqDicEdit.prototype.showAboutWindow = Pane.showAboutWindow;
 AqDicEdit.prototype.initAppMenu = Menu.initAppMenu;
 AqDicEdit.prototype.initDockMenu = Menu.initDockMenu;
 AqDicEdit.prototype.handleOpenFile = Launch.handleOpenFile;
@@ -45,7 +49,7 @@ app.on('ready', () => {
   myApp.showDictWindow();
 
   // init menu
-  myApp.initAppMenu();
+  myApp.initAppMenu({isDebug: (process.env.DEBUG != null)});
   myApp.initDockMenu();
 });
 
