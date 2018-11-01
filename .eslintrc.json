@@ -1,0 +1,39 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jasmine": true,
+    "mocha": true
+  },
+  "globals": {
+    "angular": 1,
+    "introJs": 1
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module"
+  },
+  "rules": {
+    "array-bracket-spacing": ["error", "never"],
+    "indent": 0,
+    "linebreak-style": ["error", "unix"],
+    "no-unused-vars": "warn",
+    "semi": ["error", "always"]
+  },
+  "overrides": {
+    "files": [
+      "*.ts",
+      "js/*.ts",
+      "test/*.ts"
+    ],
+    "parser": "typescript-eslint-parser",
+    "rules": {
+      "comma-dangle": ["error", "always-multiline"],
+      "no-undef": "off",
+      "quotes": ["error", "single", { "avoidEscape": true }],
+      "object-curly-spacing": ["error", "never"]
+    }
+  }
+}
