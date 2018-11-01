@@ -20,7 +20,7 @@ function showDictWindow(): void {
     acceptFirstMouse: true,
     show: false, // show at did-finish-load event
     webPreferences: {
-      devTools: (process.env.DEBUG != null)
+      devTools: (process.env.DEBUG != null),
     },
   });
   this.dictWindow.loadURL(`file://${__dirname}/dict.html`);

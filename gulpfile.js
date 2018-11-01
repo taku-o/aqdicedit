@@ -165,7 +165,6 @@ gulp.task('_package-release', (cb) => {
           --electron-version=${ELECTRON_VERSION} \
           --icon=icns/myukkurivoice.icns --overwrite --asar.unpackDir=vendor \
           --protocol-name=aqdicedit --protocol=aqdicedit \
-          --extend-info=extend.plist \
           --ignore="^/AqDicEdit-darwin-x64"`
         , (err, stdout, stderr) => {
           cb(err);

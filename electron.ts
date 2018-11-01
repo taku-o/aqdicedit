@@ -5,9 +5,6 @@ import * as Menu from './electron-menu';
 import * as Pane from './electron-window';
 import * as Launch from './electron-launch';
 
-// debug options
-const isDebug: boolean = process.env.DEBUG != null;
-
 // AqDicEdit application
 const AqDicEdit = function(): void {
   this.launchArgs = null;

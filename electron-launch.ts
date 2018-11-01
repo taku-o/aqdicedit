@@ -4,12 +4,12 @@ var _url, url = () => { _url = _url || require('url'); return _url; };
 
 function handleOpenUrl(scheme: string): void {
   const myApp = this;
-  const parsed = url().parse(scheme, true)
+  const parsed = url().parse(scheme, true);
   switch (parsed.host) {
     case 'quit':
       app.quit();
       break;
-    case 'dict':
+    case 'dict': {
       const dictPath = parsed.query && parsed.query.q;
       if (dictPath) {
         if (myApp.dictWindow) {
@@ -19,6 +19,7 @@ function handleOpenUrl(scheme: string): void {
         }
       }
       break;
+    }
     case 'open':
     default:
       // open
