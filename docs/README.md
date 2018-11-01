@@ -11,9 +11,14 @@
 - input
     - source converted kind
 - shortcutkey
+- alwaysTop
 - menu
 - tutorial
 - help
+- scheme(receive)
+    - open opendict
+- scheme(send)
+    - open reload
 
 ## data
 - dict position
@@ -28,4 +33,27 @@
 5. export to csv
 6. convert csv to dict
 
+## structure
+
+```
+    package.json
+    electron.ts
+    electron-window.ts
+    electron-menu.ts
+    electron-launch.ts
+    dict.html
+    js/
+        dict.ts (action)
+        services.ts
+        services.record.ts (data handling)
+        services.aques.ts (AqUsrDic)
+        models.ts (master, record)
+    css/
+        dict.less
+    vendor/
+        AqUsrDic.framework
+        aq_dic_small
+        aq_dic
+        aq_dic_large
+```
 
