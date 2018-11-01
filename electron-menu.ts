@@ -91,11 +91,11 @@ function initAppMenu(options: {isDebug: boolean}): void {
       submenu: [
         {
           label: 'チュートリアル',
-          click() { myApp.mainWindow.webContents.send('menu', 'tutorial'); },
+          click() { myApp.dictWindow.webContents.send('menu', 'tutorial'); },
         },
         {
           label: 'ショートカットキー',
-          click() { myApp.mainWindow.webContents.send('menu', 'shortcut'); },
+          click() { myApp.dictWindow.webContents.send('menu', 'shortcut'); },
         },
         {type: 'separator'},
         {
@@ -114,7 +114,7 @@ function initAppMenu(options: {isDebug: boolean}): void {
           {role: 'toggledevtools'},
           {
             label: 'Install Devtron',
-            click() { myApp.mainWindow.webContents.send('menu', 'devtron'); },
+            click() { myApp.dictWindow.webContents.send('menu', 'devtron'); },
           },
         ],
       }
