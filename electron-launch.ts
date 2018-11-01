@@ -9,9 +9,14 @@ function handleOpenUrl(scheme: string): void {
     case 'quit':
       app.quit();
       break;
-    case 'edit':
-      if (myApp.dictWindow) {
-        myApp.dictWindow.webContents.reload();
+    case 'dict':
+      const dictPath = parsed.query && parsed.query.q;
+      if (dictPath) {
+        if (myApp.dictWindow) {
+          myApp.dictWindow.webContents.send('openDict', dictWindow);
+        } else {
+          myApp.launchArgs = {filePath: filePath};
+        }
       }
       break;
     case 'open':
