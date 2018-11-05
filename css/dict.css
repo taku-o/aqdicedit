@@ -2,7 +2,6 @@ div.toolbar-actions div.form-group {
   padding-left: 10px;
   padding-right: 10px;
 }
-
 input#source {
   width: 200px;
   margin-right: 5px;
@@ -24,23 +23,18 @@ button#save-record {
 input#filter {
   width: 300px;
 }
-
 li.list-group-item:hover {
   background-color: #99ccff;
 }
 li.list-group-item:active {
   background-color: #3399ff;
 }
-
 th.tbl-source {
   width: 200px;
 }
 th.tbl-encoded {
   width: 300px;
 }
-th.tbl-kind {
-}
 table.table-striped tbody tr:hover {
   background-color: #99ccff;
 }
-

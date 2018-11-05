@@ -4,104 +4,58 @@
   <meta charset="UTF-8">
   <title>AqDicEdit</title>
   <link rel="stylesheet" href="node_modules/photon/dist/css/photon.css">
+  <link rel="stylesheet" href="css/dict.css">
   <script src="node_modules/photon/dist/template-app/js/menu.js" charset="utf-8"></script>
   <script type="text/javascript">
     document.ondragover = document.ondrop = function(e) {
       e.preventDefault(); return false;
     };
   </script>
-  <style>
-    div.toolbar-actions div.form-group form {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-    input#source {
-      width: 200px;
-      margin-right: 5px;
-    }
-    input#encoded {
-      width: 300px;
-      margin-right: 5px;
-    }
-    select#kind {
-      width: 200px;
-      margin-right: 5px;
-    }
-    button#clear-record {
-      margin-right: 5px;
-    }
-    button#save-record {
-      margin-right: 5px;
-    }
-    input#filter {
-      width: 300px;
-    }
-    li.list-group-item:hover {
-      background-color: #99ccff;
-    }
-    li.list-group-item:active {
-      background-color: #3399ff;
-    }
-    th.tbl-source {
-      width: 200px;
-    }
-    th.tbl-encoded {
-      width: 300px;
-    }
-    th.tbl-kind {
-    }
-    table.table-striped tbody tr:hover {
-      background-color: #99ccff;
-    }
-  </style>
 </head>
 <body>
 <div class="window">
 
   <!-- header -->
   <header class="toolbar toolbar-header">
-    <h1 class="title">AqDicEdit</h1>
     <div class="toolbar-actions">
       <div class="form-group">
-        <form>
-          <input type="text" id="source" class="form-control" placeholder="Filter" value="ゆっくり霊夢">
-          <input type="text" id="encoded" class="form-control" placeholder="Filter" value="ユック'リ/レ'イム">
-          <select id="kind" class="form-control">
-            <option value="0">名詞</option>
-            <option value="1">名詞(サ変)</option>
-            <option value="2">人名</option>
-            <option value="3">人名(姓)</option>
-            <option value="4">人名(名)</option>
-            <option value="5">固有名詞</option>
-            <option value="6">固有名詞(組織)</option>
-            <option value="7">固有名詞(地域)</option>
-            <option value="8">固有名詞(国)</option>
-            <option value="9">代名詞</option>
-            <option value="10">代名詞(縮約)</option>
-            <option value="11">名詞(副詞可能)</option>
-            <option value="12">名詞(接続詞的)</option>
-            <option value="13">名詞(形容動詞語幹)</option>
-            <option value="14">名詞(ナイ形容詞語幹)</option>
-            <option value="15">形容詞</option>
-            <option value="16">副詞</option>
-            <option value="17">副詞(助詞類接続)</option>
-            <option value="18">接頭詞(名詞接続)</option>
-            <option value="19">接頭詞(動詞接続)</option>
-            <option value="20">接頭詞(数接続)</option>
-            <option value="21">接頭詞(形容詞接続)</option>
-            <option value="22">接続詞</option>
-            <option value="23">連体詞</option>
-            <option value="24">記号</option>
-            <option value="25">記号(アルファベット)</option>
-            <option value="26">感動詞</option>
-            <option value="27">間投詞</option>
-          </select>
-          <button id="clear-record" class="btn btn-large btn-primary">Clear</button>
-          <button id="save-record" class="btn btn-large btn-primary">Add/Update</button>
-          <button id="delete-record" class="btn btn-large btn-negative">Delete</button>
+        <input type="text" id="source" class="form-control" placeholder="Filter" value="ゆっくり霊夢">
+        <input type="text" id="encoded" class="form-control" placeholder="Filter" value="ユック'リ/レ'イム">
+        <select id="kind" class="form-control">
+          <option value="0">名詞</option>
+          <option value="1">名詞(サ変)</option>
+          <option value="2">人名</option>
+          <option value="3">人名(姓)</option>
+          <option value="4">人名(名)</option>
+          <option value="5">固有名詞</option>
+          <option value="6">固有名詞(組織)</option>
+          <option value="7">固有名詞(地域)</option>
+          <option value="8">固有名詞(国)</option>
+          <option value="9">代名詞</option>
+          <option value="10">代名詞(縮約)</option>
+          <option value="11">名詞(副詞可能)</option>
+          <option value="12">名詞(接続詞的)</option>
+          <option value="13">名詞(形容動詞語幹)</option>
+          <option value="14">名詞(ナイ形容詞語幹)</option>
+          <option value="15">形容詞</option>
+          <option value="16">副詞</option>
+          <option value="17">副詞(助詞類接続)</option>
+          <option value="18">接頭詞(名詞接続)</option>
+          <option value="19">接頭詞(動詞接続)</option>
+          <option value="20">接頭詞(数接続)</option>
+          <option value="21">接頭詞(形容詞接続)</option>
+          <option value="22">接続詞</option>
+          <option value="23">連体詞</option>
+          <option value="24">記号</option>
+          <option value="25">記号(アルファベット)</option>
+          <option value="26">感動詞</option>
+          <option value="27">間投詞</option>
+        </select>
+        <button id="clear-record" class="btn btn-large btn-primary">Clear</button>
+        <button id="save-record" class="btn btn-large btn-primary">Add/Update</button>
+        <button id="delete-record" class="btn btn-large btn-negative">Delete</button>
 
-          <input type="text" id="filter" class="form-control pull-right" placeholder="Filter">
-        </form>
+        <input type="text" id="filter" class="form-control pull-right" placeholder="Filter">
       </div>
     </div>
   </header>
