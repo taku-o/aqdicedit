@@ -27,11 +27,20 @@
       width: 200px;
       margin-right: 5px;
     }
+    button#clear-record {
+      margin-right: 5px;
+    }
     button#save-record {
       margin-right: 5px;
     }
     input#filter {
       width: 300px;
+    }
+    li.list-group-item:hover {
+      background-color: #99ccff;
+    }
+    li.list-group-item:active {
+      background-color: #3399ff;
     }
     th.tbl-source {
       width: 200px;
@@ -40,6 +49,9 @@
       width: 300px;
     }
     th.tbl-kind {
+    }
+    table.table-striped tbody tr:hover {
+      background-color: #99ccff;
     }
   </style>
 </head>
@@ -84,8 +96,9 @@
             <option value="26">感動詞</option>
             <option value="27">間投詞</option>
           </select>
-          <button id="save-record" class="btn btn-large">Add/Update</button>
-          <button id="delete-record" class="btn btn-large">Delete</button>
+          <button id="clear-record" class="btn btn-large btn-primary">Clear</button>
+          <button id="save-record" class="btn btn-large btn-primary">Add/Update</button>
+          <button id="delete-record" class="btn btn-large btn-negative">Delete</button>
 
           <input type="text" id="filter" class="form-control pull-right" placeholder="Filter">
         </form>
