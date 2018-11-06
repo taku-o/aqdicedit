@@ -9,17 +9,6 @@ function handleOpenUrl(scheme: string): void {
     case 'quit':
       app.quit();
       break;
-    case 'dict': {
-      const dictPath = parsed.query && parsed.query.q;
-      if (dictPath) {
-        if (myApp.dictWindow) {
-          myApp.dictWindow.webContents.send('openDict', dictPath);
-        } else {
-          myApp.launchArgs = {dictPath: dictPath};
-        }
-      }
-      break;
-    }
     case 'open':
     default:
       // open

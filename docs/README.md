@@ -5,8 +5,8 @@
 
 ## functions
 - add edit update delete
-- drag drop
-- import export opendir reload reset
+- export reset save cancel
+- opendir reload
 - list filter selecthighlight
 - input
     - source converted kind
@@ -15,23 +15,17 @@
 - menu
 - tutorial
 - help
-- scheme(receive)
-    - open opendict
-- scheme(send)
-    - open reload
 
 ## data
-- dict position
+- master data (csv)
 - working data (csv)
-- kind master
 
 ## flow
-1. select dict
-2. convert to csv
-3. save to db
-4. edit
-5. export to csv
-6. convert csv to dict
+1. create working data if exists.
+2. display working data
+3. edit working data
+4. save to db
+5. export custom dictionary.
 
 ## structure
 
