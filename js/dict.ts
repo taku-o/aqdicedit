@@ -1,0 +1,52 @@
+var _ipcRenderer, ipcRenderer = () => { _ipcRenderer = _ipcRenderer || require('electron').ipcRenderer; return _ipcRenderer; };
+var _log, log                 = () => { _log = _log || require('electron-log'); return _log; };
+
+// handle uncaughtException
+process.on('uncaughtException', (err: Error) => {
+  log().error('main:event:uncaughtException');
+  log().error(err);
+  log().error(err.stack);
+});
+
+// angular app
+angular.module('dictApp', ['dictModel', 'dictRecordService', 'dictAquesService'])
+  .config(['$qProvider', ($qProvider) => {
+    $qProvider.errorOnUnhandledRejections(false);
+  }])
+  // controller
+  .controller('DictController', [function() {
+
+    // shortcut
+    ipcRenderer().on('shortcut', (event, action: string) => {
+    });
+
+    // menu
+    ipcRenderer().on('menu', (event, action: string) => {
+    });
+
+    // init
+    const ctrl = this;
+
+    // action
+    ctrl.clear = function(): void {
+    };
+    ctrl.add = function(): void {
+    };
+    ctrl.delete = function(): void {
+    };
+
+    ctrl.save = function(): void {
+    };
+    ctrl.cancel = function(): void {
+    };
+    ctrl.export = function(): void {
+    };
+    ctrl.import = function(): void {
+    };
+    ctrl.reset = function(): void {
+    };
+
+    ctrl.select = function(): void {
+    };
+
+  }]);

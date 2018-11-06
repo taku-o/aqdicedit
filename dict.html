@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="dictApp">
 <head>
   <meta charset="UTF-8">
   <title>AqDicEdit</title>
   <link rel="stylesheet" href="node_modules/photon/dist/css/photon.css">
   <link rel="stylesheet" href="css/dict.css">
   <script src="node_modules/photon/dist/template-app/js/menu.js" charset="utf-8"></script>
+  <script src="js/models.js"></script>
+  <script src="js/services.record.js"></script>
+  <script src="js/services.aques.js"></script>
+  <script src="js/dict.js"></script>
   <script type="text/javascript">
     document.ondragover = document.ondrop = function(e) {
       e.preventDefault(); return false;
@@ -13,7 +17,7 @@
   </script>
 </head>
 <body>
-<div class="window">
+<div class="window" ng-controller="DictController as ctrl">
 
   <!-- header -->
   <header class="toolbar toolbar-header">
@@ -51,9 +55,9 @@
           <option value="26">感動詞</option>
           <option value="27">間投詞</option>
         </select>
-        <button id="clear-record" class="btn btn-large btn-primary">Clear</button>
-        <button id="save-record" class="btn btn-large btn-primary">Add/Update</button>
-        <button id="delete-record" class="btn btn-large btn-negative">Delete</button>
+        <button id="clear-record" class="btn btn-large btn-primary" ng-click="ctrl.clear()">Clear</button>
+        <button id="save-record" class="btn btn-large btn-primary" ng-click="ctrl.add()">Add/Update</button>
+        <button id="delete-record" class="btn btn-large btn-negative" ng-click="ctrl.delete()">Delete</button>
 
         <input type="text" id="filter" class="form-control pull-right" placeholder="Filter">
       </div>
@@ -67,7 +71,7 @@
       <div class="pane-sm sidebar">
         <ul class="list-group">
           <!-- save -->
-          <li class="list-group-item">
+          <li class="list-group-item" ng-click="ctrl.save()">
             <img class="img-circle media-object pull-left" src="img/twotone_save_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Save</strong>
@@ -79,7 +83,7 @@
             </div>
           </li>
           <!-- export -->
-          <li class="list-group-item">
+          <li class="list-group-item" ng-click="ctrl.export()">
             <img class="img-circle media-object pull-left" src="img/twotone_import_export_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Export</strong>
@@ -90,7 +94,7 @@
             </div>
           </li>
           <!-- import -->
-          <li class="list-group-item">
+          <li class="list-group-item" ng-click="ctrl.import()">
             <img class="img-circle media-object pull-left" src="img/twotone_import_export_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Import</strong>
@@ -102,7 +106,7 @@
             </div>
           </li>
           <!-- reset -->
-          <li class="list-group-item">
+          <li class="list-group-item" ng-click="ctrl.reset()">
             <img class="img-circle media-object pull-left" src="img/twotone_cached_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Reset</strong>
@@ -113,7 +117,7 @@
             </div>
           </li>
           <!-- cancel -->
-          <li class="list-group-item">
+          <li class="list-group-item" ng-click="ctrl.cancel()">
             <img class="img-circle media-object pull-left" src="img/twotone_cancel_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Cancel</strong>
@@ -138,7 +142,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr ng-click="ctrl.select()">
               <td>ゆっくり霊夢</td>
               <td>ユック'リ/レ'イム</td>
               <td>人名</td>
