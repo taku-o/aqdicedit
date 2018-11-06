@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="node_modules/photon/dist/css/photon.css">
   <link rel="stylesheet" href="css/dict.css">
   <script src="node_modules/photon/dist/template-app/js/menu.js" charset="utf-8"></script>
+  <script src="node_modules/angular/angular.min.js"></script>
   <script src="js/models.js"></script>
   <script src="js/services.record.js"></script>
   <script src="js/services.aques.js"></script>
@@ -82,26 +83,14 @@
               </p>
             </div>
           </li>
-          <!-- export -->
-          <li class="list-group-item" ng-click="ctrl.export()">
-            <img class="img-circle media-object pull-left" src="img/twotone_import_export_black_36dp.png" width="32" height="32">
+          <!-- cancel -->
+          <li class="list-group-item" ng-click="ctrl.cancel()">
+            <img class="img-circle media-object pull-left" src="img/twotone_cancel_black_36dp.png" width="32" height="32">
             <div class="media-body">
-              <strong>Export</strong>
+              <strong>Cancel</strong>
               <p>
-                定義データを元に、ユーザ<br>
-                ー辞書を書き出しします。
-              </p>
-            </div>
-          </li>
-          <!-- import -->
-          <li class="list-group-item" ng-click="ctrl.import()">
-            <img class="img-circle media-object pull-left" src="img/twotone_import_export_black_36dp.png" width="32" height="32">
-            <div class="media-body">
-              <strong>Import</strong>
-              <p>
-                指定のユーザー辞書を取り<br>
-                込んで、定義データを初期<br>
-                化します。
+                定義データの編集を取り消<br>
+                します。
               </p>
             </div>
           </li>
@@ -116,14 +105,14 @@
               </p>
             </div>
           </li>
-          <!-- cancel -->
-          <li class="list-group-item" ng-click="ctrl.cancel()">
-            <img class="img-circle media-object pull-left" src="img/twotone_cancel_black_36dp.png" width="32" height="32">
+          <!-- export -->
+          <li class="list-group-item" ng-click="ctrl.export()">
+            <img class="img-circle media-object pull-left" src="img/twotone_import_export_black_36dp.png" width="32" height="32">
             <div class="media-body">
-              <strong>Cancel</strong>
+              <strong>Export</strong>
               <p>
-                定義データの編集を取り消<br>
-                します。
+                定義データを元に、ユーザ<br>
+                ー辞書を書き出しします。
               </p>
             </div>
           </li>

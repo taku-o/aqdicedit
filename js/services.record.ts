@@ -4,6 +4,6 @@ angular.module('dictRecordService', [])
       action: function(): void {
       },
       record: function(): void {
-      }
+      },
     };
   }]);

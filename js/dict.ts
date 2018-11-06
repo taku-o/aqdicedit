@@ -9,7 +9,7 @@ process.on('uncaughtException', (err: Error) => {
 });
 
 // angular app
-angular.module('dictApp', ['dictModel', 'dictRecordService', 'dictAquesService'])
+angular.module('dictApp', ['dictModel', 'dictService'])
   .config(['$qProvider', ($qProvider) => {
     $qProvider.errorOnUnhandledRejections(false);
   }])
@@ -40,8 +40,6 @@ angular.module('dictApp', ['dictModel', 'dictRecordService', 'dictAquesService']
     ctrl.cancel = function(): void {
     };
     ctrl.export = function(): void {
-    };
-    ctrl.import = function(): void {
     };
     ctrl.reset = function(): void {
     };

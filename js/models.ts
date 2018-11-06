@@ -4,7 +4,7 @@ angular.module('dictModel', [])
   })
   .factory('Kind', () => {
     return [];
-  });
+  })
   .factory('KindList', () => {
     return [];
   });
