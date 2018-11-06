@@ -14,7 +14,8 @@ angular.module('dictApp', ['dictModel', 'dictService'])
     $qProvider.errorOnUnhandledRejections(false);
   }])
   // controller
-  .controller('DictController', [function() {
+  .controller('DictController',
+    ['AquesService', function(AquesService) {
 
     // shortcut
     ipcRenderer().on('shortcut', (event, action: string) => {
@@ -39,12 +40,16 @@ angular.module('dictApp', ['dictModel', 'dictService'])
     };
     ctrl.cancel = function(): void {
     };
+
     ctrl.export = function(): void {
+        var r = AquesService.generateCSV('/Users/taku-o/Desktop/aqdicedit/vendor/aq_dic_large/aq_user.dic', '/Users/taku-o/Desktop/test.csv');
     };
     ctrl.reset = function(): void {
     };
 
     ctrl.select = function(): void {
     };
+
+        this.export();
 
   }]);
