@@ -8,7 +8,13 @@
   <link rel="stylesheet" href="css/dict.css">
   <script src="node_modules/photon/dist/template-app/js/menu.js" charset="utf-8"></script>
   <script src="node_modules/angular/angular.min.js"></script>
-  <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.core.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.cellnav.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.edit.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.row-edit.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.resize-columns.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.move-columns.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.selection.min.js"></script>
   <script src="js/models.js"></script>
   <script src="js/services.record.js"></script>
   <script src="js/services.aques.js"></script>
@@ -26,10 +32,10 @@
   <!-- header -->
   <header class="toolbar toolbar-header">
     <div class="toolbar-actions">
-      <div class="form-group">
-        <button id="append-record" class="btn btn-large btn-primary pull-right" ng-click="ctrl.add()">Add</button>
-        <button id="insert-record" class="btn btn-large btn-primary pull-right" ng-click="ctrl.insert()">Insert</button>
-        <button id="delete-record" class="btn btn-large btn-negative pull-right" ng-click="ctrl.delete()">Delete</button>
+      <div class="form-group pull-right">
+        <button id="append-record" class="btn btn-large btn-primary" ng-click="ctrl.add()">Add</button>
+        <button id="insert-record" class="btn btn-large btn-primary" ng-click="ctrl.insert()">Insert</button>
+        <button id="delete-record" class="btn btn-large btn-negative" ng-click="ctrl.delete()">Delete</button>
       </div>
     </div>
   </header>
@@ -91,7 +97,9 @@
 
       <!-- main -->
       <div class="pane">
-        <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="grid"></div>
+        <div ui-grid="gridOptions"
+          ui-grid-edit ui-grid-row-edit ui-grid-resize-columns ui-grid-selection ui-grid-cellNav
+          class="grid"></div>
       </div>
       <!-- // main -->
 

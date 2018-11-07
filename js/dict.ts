@@ -16,7 +16,10 @@ process.on('uncaughtException', (err: Error) => {
 });
 
 // angular app
-angular.module('dictApp', ['dictModel', 'dictService', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
+angular.module('dictApp',
+  ['dictModel', 'dictService',
+   'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.cellNav',
+  ])
   .config(['$qProvider', ($qProvider) => {
     $qProvider.errorOnUnhandledRejections(false);
   }])
@@ -41,24 +44,56 @@ angular.module('dictApp', ['dictModel', 'dictService', 'ui.grid', 'ui.grid.edit'
     const mAppDictDir = `${app.getPath('userData').replace('AqDicEdit', 'MYukkuriVoice')}/userdict`;
 
     // initialize records
-    $scope.gridOptions = {};
+    $scope.gridOptions = {
+      enableFiltering: true,
+      enableRowSelection: true,
+      multiSelect: false,
+      onRegisterApi: (gridApi) => {
+        $scope.gridApi = gridApi;
+        $scope.gridApi.edit.on.afterCellEdit($scope, (rowEntity, colDef, newValue, oldValue) => {
+          if (newValue != oldValue) {
+            rowEntity.isDirty = true;
+          }
+        });
+        $scope.gridApi.rowEdit.on.saveRow($scope, (rowEntity) => {
+          const d = $q.defer();
+          $scope.gridApi.rowEdit.setSavePromise(rowEntity, d.promise);
+
+          if ((!rowEntity.source) || (!rowEntity.encoded)) {
+            rowEntity.isDirty = true;
+            d.reject('isDirty'); return d.promise;
+          }
+
+          const r = AquesService.validateInput(rowEntity.source, rowEntity.encoded, rowEntity.kind);
+          if (!r) {
+            d.reject('isError');
+            rowEntity.isError = true;
+          } else {
+            delete rowEntity.isDirty;
+            delete rowEntity.isError;
+            d.resolve('ok');
+          }
+          return d.promise;
+        });
+      },
+    };
+
     $scope.gridOptions.columnDefs = [
       {
         name: 'source', displayName: '登録語句', enableCellEdit: true, width: 200,
+        field: 'source', enableFiltering: true,
       },
       {
         name: 'encoded', displayName: '音声記号列', enableCellEdit: true, width: 300,
+        field: 'encoded', enableFiltering: true,
       },
       {
         name: 'kind', displayName: '品詞', editableCellTemplate: 'ui-grid/dropdownEditor',
         cellFilter: 'mapKind', editDropdownValueLabel: 'kind', editDropdownOptionsArray: KindList,
+        field: 'kind', enableFiltering: false,
       },
     ];
     $scope.gridOptions.data = [];
-    $scope.saveRow = function( rowEntity ) {
-        console.log('saveRow');
-        return rowEntity;
-    };
 
     this.init = function(): ng.IPromise<boolean> {
       return this.setup().then(() => {
@@ -102,7 +137,6 @@ angular.module('dictApp', ['dictModel', 'dictService', 'ui.grid', 'ui.grid.edit'
           ],
           skip_empty_lines: true,
         });
-          console.log(records);
         d.resolve(records);
       });
       return d.promise;
@@ -111,10 +145,33 @@ angular.module('dictApp', ['dictModel', 'dictService', 'ui.grid', 'ui.grid.edit'
 
     // action
     ctrl.add = function(): void {
+      $scope.gridOptions.data.unshift({
+        source:'',
+        encoded:'',
+        kind:0,
+        isDirty: true,
+      });
     };
     ctrl.insert = function(): void {
+      if ($scope.gridApi.selection.getSelectedRows()) {
+        const row = $scope.gridApi.selection.getSelectedRows()[0];
+        var index = $scope.gridOptions.data.indexOf(row);
+        $scope.gridOptions.data.splice(index, 0, {
+          source:'',
+          encoded:'',
+          kind:0,
+          isDirty: true,
+        });
+      } else {
+        ctrl.add();
+      }
     };
     ctrl.delete = function(): void {
+      if ($scope.gridApi.selection.getSelectedRows()) {
+        const row = $scope.gridApi.selection.getSelectedRows()[0];
+        var index = $scope.gridOptions.data.indexOf(row);
+        $scope.gridOptions.data.splice(index, 1);
+      }
     };
 
     ctrl.save = function(): void {
