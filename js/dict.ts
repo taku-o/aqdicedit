@@ -1,5 +1,10 @@
+var app = require('electron').remote.app;
 var _ipcRenderer, ipcRenderer = () => { _ipcRenderer = _ipcRenderer || require('electron').ipcRenderer; return _ipcRenderer; };
 var _log, log                 = () => { _log = _log || require('electron-log'); return _log; };
+var _fs, fs                   = () => { _fs = _fs || require('fs'); return _fs; };
+var _epath, epath             = () => { _epath = _epath || require('electron-path'); return _epath; };
+
+var unpackedPath = epath().getUnpackedPath();
 
 // handle uncaughtException
 process.on('uncaughtException', (err: Error) => {
@@ -27,6 +32,11 @@ angular.module('dictApp', ['dictModel', 'dictService'])
 
     // init
     const ctrl = this;
+    // AqDicEdit, MYukkuriVoice data dir
+    const rscDictDir = `${unpackedPath}/vendor/aq_dic_large`;
+    const mAppDictDir = `${app.getPath('userData').replace('AqDicEdit', 'MYukkuriVoice')}/userdict`;
+
+    // initialize working csv
 
     // action
     ctrl.clear = function(): void {
@@ -41,15 +51,35 @@ angular.module('dictApp', ['dictModel', 'dictService'])
     ctrl.cancel = function(): void {
     };
 
+    ctrl.import = function(): void {
+      const r = AquesService.generateCSV(`${rscDictDir}/aq_user.dic`, `${app.getPath('userData')}/aq_user.csv`);
+    };
     ctrl.export = function(): void {
-        var r = AquesService.generateCSV('/Users/taku-o/Desktop/aqdicedit/vendor/aq_dic_large/aq_user.dic', '/Users/taku-o/Desktop/test.csv');
+      // mkdir, copy resource
+      fs().stat(`${mAppDictDir}`, (err: Error, stats) => {
+        if (err) {
+          fs().mkdirSync(`${mAppDictDir}`);
+          fs().writeFileSync(`${mAppDictDir}/aqdic.bin`, fs().readFileSync(`${rscDictDir}/aqdic.bin`));
+        }
+        // generate user dict
+        const r = AquesService.generateUserDict(`${app.getPath('userData')}/aq_user.csv`, `${mAppDictDir}/aq_user.dic`);
+      });
     };
     ctrl.reset = function(): void {
+      fs().readFile(`${rscDictDir}/aqdic.bin`, (errRead: Error, data) => {
+        if (errRead) {
+          return;
+        }
+        fs().writeFile(`${mAppDictDir}/aqdic.bin`, data, (errWrite: Error) => {
+          if (errWrite) {
+            return;
+          }
+        });
+      })
     };
 
     ctrl.select = function(): void {
     };
 
-        this.export();
 
   }]);

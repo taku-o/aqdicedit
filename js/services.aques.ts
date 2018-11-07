@@ -1,6 +1,6 @@
-var _ffi, ffi                   = () => { _ffi = _ffi || require('ffi'); return _ffi; };
+var _ffi, ffi     = () => { _ffi = _ffi || require('ffi'); return _ffi; };
 var _epath, epath = () => { _epath = _epath || require('electron-path'); return _epath; };
-var unpackedPath = epath().getUnpackedPath();
+var unpackedPath  = epath().getUnpackedPath();
 
 angular.module('dictAquesService', [])
   .factory('AquesService', [() => {
