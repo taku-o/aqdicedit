@@ -116,7 +116,7 @@ angular.module('dictApp',
       // copy resource
       fs().stat(`${mAppDictDir}/aq_user.csv`, (err: Error, stats) => {
         if (err) {
-          fs().writeFileSync(`${mAppDictDir}/aqdic.csv`, fs().readFileSync(`${rscDictDir}/aq_user.csv`));
+          fs().writeFileSync(`${mAppDictDir}/aq_user.csv`, fs().readFileSync(`${rscDictDir}/aq_user.csv`));
         }
         d.resolve('ok');
       });
@@ -125,7 +125,7 @@ angular.module('dictApp',
     };
     this.loadCsv = function(): ng.IPromise<any> {
       const d = $q.defer();
-      fs().readFile(`${mAppDictDir}/aqdic.csv`, 'utf-8', (err: Error, data) => {
+      fs().readFile(`${mAppDictDir}/aq_user.csv`, 'utf-8', (err: Error, data) => {
         if (err) {
           d.reject(err); return;
         }
@@ -202,7 +202,7 @@ angular.module('dictApp',
     };
     ctrl.reset = function(): ng.IPromise<boolean> {
       // reset csv
-      fs().writeFileSync(`${mAppDictDir}/aqdic.csv`, fs().readFileSync(`${rscDictDir}/aq_user.csv`));
+      fs().writeFileSync(`${mAppDictDir}/aq_user.csv`, fs().readFileSync(`${rscDictDir}/aq_user.csv`));
       // and load
       return this.loadCsv().then((records) => {
         $scope.gridOptions.data = records;
