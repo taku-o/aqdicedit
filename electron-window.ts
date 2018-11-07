@@ -32,9 +32,6 @@ function showDictWindow(): void {
   localShortcut().register(this.dictWindow, 'Command+W', () => {
     // disable c+w
   });
-  localShortcut().register(this.dictWindow, 'Command+R', () => {
-    // disable c+w
-  });
 
   // window event
   this.dictWindow.webContents.on('did-finish-load', () => {
