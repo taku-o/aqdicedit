@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>AqDicEdit</title>
   <link rel="stylesheet" href="node_modules/photon/dist/css/photon.css">
+  <link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.min.css">
   <link rel="stylesheet" href="css/dict.css">
   <script src="node_modules/photon/dist/template-app/js/menu.js" charset="utf-8"></script>
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
   <script src="js/models.js"></script>
   <script src="js/services.record.js"></script>
   <script src="js/services.aques.js"></script>
@@ -123,179 +125,7 @@
 
       <!-- main -->
       <div class="pane">
-        <table class="table-striped">
-          <thead>
-            <tr>
-              <th class="tbl-source">登録語句</th>
-              <th class="tbl-encoded">音声記号列</th>
-              <th class="tbl-kind">品詞</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-click="ctrl.select()">
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-            <tr>
-              <td>ゆっくり霊夢</td>
-              <td>ユック'リ/レ'イム</td>
-              <td>人名</td>
-            </tr>
-
-
-          </tbody>
-        </table>
+        <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="grid"></div>
       </div>
       <!-- // main -->
 
