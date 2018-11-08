@@ -8,7 +8,11 @@ angular.module('dictIntroService', [])
           steps: [
             {
               element: '#grid',
-              intro: 'カスタム辞書のデータを表示しています。この辞書データはMYukkuriVoiceアプリでのメッセージの変換で利用されます。',
+              intro: 'このアプリはMYukkuriVoiceアプリ用のカスタム辞書編集ツールです。',
+            },
+            {
+              element: '#grid',
+              intro: 'この表にはカスタム辞書のデータが表示されます。この辞書データはMYukkuriVoiceアプリでのメッセージの変換で利用されます。',
             },
             {
               element: '#grid',
