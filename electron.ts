@@ -1,5 +1,5 @@
 'use strict';
-import {app} from 'electron';
+import {app, ipcMain} from 'electron';
 var _log, log = () => { _log = _log || require('electron-log'); return _log; };
 import * as Menu from './electron-menu';
 import * as Pane from './electron-window';
@@ -61,5 +61,10 @@ function switchAlwaysOnTop(): void {
   myApp.dictWindow.setAlwaysOnTop(newflg);
   myApp.dictWindow.webContents.send('switchAlwaysOnTop', newflg);
 }
+ipcMain.on('switchAlwaysOnTop', (event, message) => {
+  const newflg = !myApp.dictWindow.isAlwaysOnTop();
+  myApp.dictWindow.setAlwaysOnTop(newflg);
+  event.sender.send('switchAlwaysOnTop', newflg);
+});
 AqDicEdit.prototype.switchAlwaysOnTop = switchAlwaysOnTop;
 

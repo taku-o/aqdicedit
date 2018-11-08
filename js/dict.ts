@@ -39,6 +39,7 @@ angular.module('dictApp',
     // init
     const ctrl = this;
     $scope.message = '';
+    $scope.alwaysOnTop = false;
     // AqDicEdit, MYukkuriVoice data dir
     const rscDictDir = `${unpackedPath}/vendor/aq_dic_large`;
     const mAppDictDir = `${app.getPath('userData').replace('AqDicEdit', 'MYukkuriVoice')}/userdict`;
@@ -251,6 +252,15 @@ angular.module('dictApp',
       });
       return d.promise;
     };
+
+    ctrl.switchAlwaysOnTop = function(): void {
+      ipcRenderer().send('switchAlwaysOnTop', 'dictWindow');
+    };
+    ipcRenderer().on('switchAlwaysOnTop', (event, newflg) => {
+      $scope.alwaysOnTop = newflg;
+      $scope.message = `update alwaysOnTop option ${newflg?'ON':'OFF'}`;
+      $timeout(() => { $scope.$apply(); });
+    });
   }])
   .filter('mapKind', ['KindHash', function(KindHash) {
     const kindHash = KindHash;
