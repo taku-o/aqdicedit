@@ -25,8 +25,8 @@ angular.module('dictApp',
   }])
   // controller
   .controller('DictController',
-    ['$scope', '$q', '$timeout', 'AquesService', 'KindList',
-    function($scope, $q, $timeout, AquesService, KindList) {
+    ['$scope', '$q', '$timeout', '$interval', 'AquesService', 'KindList',
+    function($scope, $q, $timeout, $interval, AquesService, KindList) {
 
     // shortcut
     ipcRenderer().on('shortcut', (event, action: string) => {
@@ -51,26 +51,20 @@ angular.module('dictApp',
       onRegisterApi: (gridApi) => {
         $scope.gridApi = gridApi;
         $scope.gridApi.edit.on.afterCellEdit($scope, (rowEntity, colDef, newValue, oldValue) => {
-          if (newValue != oldValue) {
-            rowEntity.isDirty = true;
-          }
+          // do nothing
         });
         $scope.gridApi.rowEdit.on.saveRow($scope, (rowEntity) => {
           const d = $q.defer();
           $scope.gridApi.rowEdit.setSavePromise(rowEntity, d.promise);
 
           if ((!rowEntity.source) || (!rowEntity.encoded)) {
-            rowEntity.isDirty = true;
-            d.reject('isDirty'); return d.promise;
+            d.reject(new Error('source or encoded is empty.')); return d.promise;
           }
 
           const r = AquesService.validateInput(rowEntity.source, rowEntity.encoded, rowEntity.kind);
           if (!r) {
-            d.reject('isError');
-            rowEntity.isError = true;
+            d.reject(new Error('isError'));
           } else {
-            delete rowEntity.isDirty;
-            delete rowEntity.isError;
             d.resolve('ok');
           }
           return d.promise;
@@ -145,23 +139,27 @@ angular.module('dictApp',
 
     // action
     ctrl.add = function(): void {
-      $scope.gridOptions.data.unshift({
-        source:'',
-        encoded:'',
-        kind:0,
-        isDirty: true,
-      });
+      const newrow = {
+        source: '',
+        encoded: '',
+        kind: '0',
+      };
+      $scope.gridOptions.data.unshift(newrow);
+      $scope.message = 'add new record.';
+      $interval(() => { $scope.gridApi.rowEdit.setRowsDirty([newrow]); }, 0, 1);
     };
     ctrl.insert = function(): void {
       if ($scope.gridApi.selection.getSelectedRows()) {
         const row = $scope.gridApi.selection.getSelectedRows()[0];
-        var index = $scope.gridOptions.data.indexOf(row);
-        $scope.gridOptions.data.splice(index, 0, {
-          source:'',
-          encoded:'',
-          kind:0,
-          isDirty: true,
-        });
+        const index = $scope.gridOptions.data.indexOf(row);
+        const newrow = {
+          source: '',
+          encoded: '',
+          kind: '0',
+        };
+        $scope.gridOptions.data.splice(index, 0, newrow);
+        $scope.message = 'insert new record.';
+        $interval(() => { $scope.gridApi.rowEdit.setRowsDirty([newrow]); }, 0, 1);
       } else {
         ctrl.add();
       }
@@ -169,21 +167,30 @@ angular.module('dictApp',
     ctrl.delete = function(): void {
       if ($scope.gridApi.selection.getSelectedRows()) {
         const row = $scope.gridApi.selection.getSelectedRows()[0];
-        var index = $scope.gridOptions.data.indexOf(row);
+        const index = $scope.gridOptions.data.indexOf(row);
         $scope.gridOptions.data.splice(index, 1);
+        $scope.message = 'delete selected record.';
+      } else {
+        $scope.message = 'no record are selected. can not delete data.';
       }
     };
 
     ctrl.save = function(): void {
-      const data = (stringify())($scope.gridOptions.data, {
-        columns: [
-          'source',
-          'encoded',
-          'kind',
-        ],
-        quote: '',
+      this.validateData().then(() => {
+        const data = (stringify())($scope.gridOptions.data, {
+          columns: [
+            'source',
+            'encoded',
+            'kind',
+          ],
+          quote: '',
+        });
+        fs().writeFileSync(`${mAppDictDir}/aq_user.csv`, data);
+        $scope.message = 'save records, DONE.';
+      })
+      .catch((err: Error) => {
+        $scope.message = 'error data are found. can not save data, until fix these.';
       });
-      fs().writeFileSync(`${mAppDictDir}/aq_user.csv`, data);
     };
     ctrl.cancel = function(): ng.IPromise<boolean> {
       return this.loadCsv().then((records) => {
@@ -191,14 +198,21 @@ angular.module('dictApp',
         $timeout(function(){
           $scope.$apply();
         });
+        $scope.message = 'cancel, and reload working records.';
         return true;
       });
     };
     ctrl.export = function(): void {
-      // generate user dict
-      const r = AquesService.generateUserDict(`${mAppDictDir}/aq_user.csv`, `${mAppDictDir}/aq_user.dic`);
-      // copy resource
-      fs().writeFileSync(`${mAppDictDir}/aqdic.bin`, fs().readFileSync(`${rscDictDir}/aqdic.bin`));
+      this.validateData().then(() => {
+        // generate user dict
+        const r = AquesService.generateUserDict(`${mAppDictDir}/aq_user.csv`, `${mAppDictDir}/aq_user.dic`);
+        // copy resource
+        fs().writeFileSync(`${mAppDictDir}/aqdic.bin`, fs().readFileSync(`${rscDictDir}/aqdic.bin`));
+        $scope.message = 'export user dictionary, DONE.';
+      })
+      .catch((err: Error) => {
+        $scope.message = 'error data are found. can not export data, until fix these.';
+      });
     };
     ctrl.reset = function(): ng.IPromise<boolean> {
       // reset csv
@@ -209,13 +223,28 @@ angular.module('dictApp',
         $timeout(function(){
           $scope.$apply();
         });
+        $scope.message = 'reset working records with master dictionary data.';
         return true;
       });
     };
-
+    this.validateData = function(): ng.IPromise<boolean> {
+      const d = $q.defer();
+      $scope.gridApi.rowEdit.flushDirtyRows($scope.gridApi.grid).then(() => {
+        const errorRows = $scope.gridApi.rowEdit.getErrorRows($scope.gridApi.grid);
+        if (errorRows.length > 0) {
+          d.reject(new Error('error data found.'));
+        } else {
+          d.resolve(true);
+        }
+      })
+      .catch((err: Error) => {
+        d.reject(err);
+      });
+      return d.promise;
+    };
   }])
   .filter('mapKind', ['KindHash', function(KindHash) {
-    var kindHash = KindHash;
+    const kindHash = KindHash;
     return function(input) {
       if (!input){
         return '';
