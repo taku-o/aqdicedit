@@ -62,9 +62,11 @@ angular.module('dictApp',
           }
 
           const r = AquesService.validateInput(rowEntity.source, rowEntity.encoded, rowEntity.kind);
-          if (!r) {
-            d.reject(new Error('isError'));
+          if (!r.success) {
+            rowEntity.error = r.message;
+            d.reject(new Error(r.message));
           } else {
+            delete rowEntity.error;
             d.resolve('ok');
           }
           return d.promise;
@@ -85,6 +87,10 @@ angular.module('dictApp',
         name: 'kind', displayName: '品詞', editableCellTemplate: 'ui-grid/dropdownEditor',
         cellFilter: 'mapKind', editDropdownValueLabel: 'kind', editDropdownOptionsArray: KindList,
         field: 'kind', enableFiltering: false,
+      },
+      {
+        name: 'error', displayName: 'Note', enableCellEdit: false,
+        field: 'error', enableFiltering: true,
       },
     ];
     $scope.gridOptions.data = [];
@@ -206,6 +212,9 @@ angular.module('dictApp',
       this.validateData().then(() => {
         // generate user dict
         const r = AquesService.generateUserDict(`${mAppDictDir}/aq_user.csv`, `${mAppDictDir}/aq_user.dic`);
+        if (!r.success) {
+          $scope.message = r.message; return;
+        }
         // copy resource
         fs().writeFileSync(`${mAppDictDir}/aqdic.bin`, fs().readFileSync(`${rscDictDir}/aqdic.bin`));
         $scope.message = 'export user dictionary, DONE.';

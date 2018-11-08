@@ -22,34 +22,31 @@ angular.module('dictAquesService', [])
     const fn_AqUsrDic_GetLastError = ffi().ForeignFunction(ptr_AqUsrDic_GetLastError, 'string', []);
 
     return {
-      generateUserDict: function(inCsvPath: string, outUserDicPath: string): boolean {
+      generateUserDict: function(inCsvPath: string, outUserDicPath: string): {success:boolean, message:string} {
         const result = fn_AqUsrDic_Import(outUserDicPath, inCsvPath);
         if (result == 0) {
-          return true;
+          return {success:true, message:null};
         } else {
           const errorMsg = fn_AqUsrDic_GetLastError();
-          console.log(errorMsg);
-          return false;
+          return {success:false, message:errorMsg};
         }
       },
-      generateCSV: function(inUserDicPath: string, outCsvPath: string): boolean {
+      generateCSV: function(inUserDicPath: string, outCsvPath: string): {success:boolean, message:string} {
         const result = fn_AqUsrDic_Export(inUserDicPath, outCsvPath);
         if (result == 0) {
-          return true;
+          return {success:true, message:null};
         } else {
           const errorMsg = fn_AqUsrDic_GetLastError();
-          console.log(errorMsg);
-          return false;
+          return {success:false, message:errorMsg};
         }
       },
-      validateInput: function(surface: string, yomi: string, posCode: number): boolean {
+      validateInput: function(surface: string, yomi: string, posCode: number): {success:boolean, message:string} {
         const result = fn_AqUsrDic_Check(surface, yomi, posCode);
         if (result == 0) {
-          return true;
+          return {success:true, message:null};
         } else {
           const errorMsg = fn_AqUsrDic_GetLastError();
-          console.log(errorMsg);
-          return false;
+          return {success:false, message:errorMsg};
         }
       },
       getLastError: function(): string {
