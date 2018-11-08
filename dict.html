@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <title>AqDicEdit</title>
   <link rel="stylesheet" href="node_modules/photon/dist/css/photon.css">
+  <link rel="stylesheet" href="node_modules/intro.js/minified/introjs.min.css">
   <link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.min.css">
   <link rel="stylesheet" href="css/dict.css">
   <script src="node_modules/photon/dist/template-app/js/menu.js" charset="utf-8"></script>
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/intro.js/minified/intro.min.js"></script>
   <script src="node_modules/angular-ui-grid/ui-grid.core.min.js"></script>
   <script src="node_modules/angular-ui-grid/ui-grid.cellnav.min.js"></script>
   <script src="node_modules/angular-ui-grid/ui-grid.edit.min.js"></script>
@@ -16,6 +18,7 @@
   <script src="node_modules/angular-ui-grid/ui-grid.move-columns.min.js"></script>
   <script src="node_modules/angular-ui-grid/ui-grid.selection.min.js"></script>
   <script src="js/models.js"></script>
+  <script src="js/services.intro.js"></script>
   <script src="js/services.aques.js"></script>
   <script src="js/services.js"></script>
   <script src="js/dict.js"></script>
@@ -31,14 +34,23 @@
   <!-- header -->
   <header class="toolbar toolbar-header">
     <div class="toolbar-actions">
+      <button class="btn btn-large btn-default" id="tutorial" ng-click="ctrl.tutorial()">
+        <span class="icon icon-help-circled"></span>チュートリアル
+      </button>
       <button class="btn btn-large btn-default float-center" id="always-on-top-btn" ng-click="ctrl.switchAlwaysOnTop()" title="前面表示固定のON/OFF切替">
         <span class="icon icon-lock" ng-class="{active:alwaysOnTop}"></span>
       </button>
 
       <div class="form-group pull-right">
-        <button id="append-record" class="btn btn-large btn-default" ng-click="ctrl.add()">Add</button>
-        <button id="insert-record" class="btn btn-large btn-default" ng-click="ctrl.insert()">Insert</button>
-        <button id="delete-record" class="btn btn-large btn-negative" ng-click="ctrl.delete()">Delete</button>
+        <button id="append-record" class="btn btn-large btn-default" ng-click="ctrl.add()">
+          <span class="icon icon-plus-circled"></span>Add
+        </button>
+        <button id="insert-record" class="btn btn-large btn-default" ng-click="ctrl.insert()">
+          <span class="icon icon-plus-circled"></span>Insert
+        </button>
+        <button id="delete-record" class="btn btn-large btn-default" ng-click="ctrl.delete()">
+          <span class="icon icon-minus-circled"></span>Delete
+        </button>
       </div>
     </div>
   </header>
@@ -50,7 +62,7 @@
       <div class="pane-sm sidebar">
         <ul class="list-group">
           <!-- save -->
-          <li class="list-group-item" ng-click="ctrl.save()">
+          <li class="list-group-item" id="save" ng-click="ctrl.save()">
             <img class="img-circle media-object pull-left" src="img/twotone_save_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Save</strong>
@@ -62,7 +74,7 @@
             </div>
           </li>
           <!-- cancel -->
-          <li class="list-group-item" ng-click="ctrl.cancel()">
+          <li class="list-group-item" id="cancel" ng-click="ctrl.cancel()">
             <img class="img-circle media-object pull-left" src="img/twotone_cancel_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Cancel</strong>
@@ -73,7 +85,7 @@
             </div>
           </li>
           <!-- reset -->
-          <li class="list-group-item" ng-click="ctrl.reset()">
+          <li class="list-group-item" id="reset" ng-click="ctrl.reset()">
             <img class="img-circle media-object pull-left" src="img/twotone_cached_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Reset</strong>
@@ -84,7 +96,7 @@
             </div>
           </li>
           <!-- export -->
-          <li class="list-group-item" ng-click="ctrl.export()">
+          <li class="list-group-item" id="export" ng-click="ctrl.export()">
             <img class="img-circle media-object pull-left" src="img/twotone_import_export_black_36dp.png" width="32" height="32">
             <div class="media-body">
               <strong>Export</strong>
@@ -100,7 +112,7 @@
 
       <!-- main -->
       <div class="pane">
-        <div ui-grid="gridOptions"
+        <div id="grid" ui-grid="gridOptions"
           ui-grid-edit ui-grid-row-edit ui-grid-resize-columns ui-grid-selection ui-grid-cellNav
           class="grid"></div>
       </div>
@@ -110,7 +122,7 @@
   </div> <!-- // window-content -->
 
   <!-- footer -->
-  <footer class="toolbar toolbar-footer">
+  <footer class="toolbar toolbar-footer" id="footer">
     <h1 class="title">{{message}}</h1>
   </footer>
 </div> <!-- window -->

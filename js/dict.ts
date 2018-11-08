@@ -25,12 +25,8 @@ angular.module('dictApp',
   }])
   // controller
   .controller('DictController',
-    ['$scope', '$q', '$timeout', '$interval', 'AquesService', 'KindList',
-    function($scope, $q, $timeout, $interval, AquesService, KindList) {
-
-    // shortcut
-    ipcRenderer().on('shortcut', (event, action: string) => {
-    });
+    ['$scope', '$q', '$timeout', '$interval', 'AquesService', 'IntroService', 'KindList',
+    function($scope, $q, $timeout, $interval, AquesService, IntroService, KindList) {
 
     // menu
     ipcRenderer().on('menu', (event, action: string) => {
@@ -251,6 +247,10 @@ angular.module('dictApp',
         d.reject(err);
       });
       return d.promise;
+    };
+
+    ctrl.tutorial = function(): void {
+      IntroService.tutorial();
     };
 
     ctrl.switchAlwaysOnTop = function(): void {
